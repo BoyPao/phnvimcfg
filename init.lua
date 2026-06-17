@@ -333,12 +333,18 @@ require('codecompanion').setup {
 			},
 		},
 		cli = {
-			agent = "claude_code",
+			agent = "open_code",
 			agents = {
 				claude_code = {
 					cmd = os.getenv("CLAUDE_CLI_CMD"),
 					args = {},
 					description = "Claude Code CLI",
+					provider = "terminal",
+				},
+				open_code = {
+					cmd = "opencode",
+					args = {},
+					description = "OpenCode",
 					provider = "terminal",
 				},
 			},
@@ -750,6 +756,7 @@ end, snopts)
 vim.api.nvim_set_hl(0, 'SpaceEOL', { bg='#45475a' })
 vim.api.nvim_create_autocmd({'BufWritePost', 'InsertLeave', 'BufEnter'}, {
 	callback = function()
+		if vim.bo.buftype and vim.bo.buftype == 'terminal' then return end
 		vim.cmd('match SpaceEOL /\\s\\+$/')
 	end
 })
