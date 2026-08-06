@@ -62,7 +62,6 @@ require("lazy").setup({
 			'neoclide/coc.nvim', branch = 'release',
 			lazy = true, -- this and below config is for setup race error msg
 			config = function()
-				require("codecompanion.providers.completion.coc.setup")
 				vim.g.coc_global_extensions = {
 					'coc-json', 'coc-git', 'coc-clangd', 'coc-cmake', 'coc-copilot', 'coc-lua',
 					'coc-sh', 'coc-xml',
@@ -203,10 +202,12 @@ require("lazy").setup({
 -- catppuccin config
 require("catppuccin").setup({
 	custom_highlights = function(colors)
+		local blend = require("catppuccin.utils.colors").blend
 		local darken = require("catppuccin.utils.colors").darken
 		local lighten = require("catppuccin.utils.colors").lighten
 		local brighten = require("catppuccin.utils.colors").brighten
 		local inc_sat = require("catppuccin.utils.colors").increase_saturation
+		local invert = require("catppuccin.utils.colors").invertColor
 		return {
 			Comment = { fg = darken(colors.green, 0.90) },
 			String = { fg = colors.peach },
@@ -261,6 +262,43 @@ require("catppuccin").setup({
 			["@constructor"] = { fg = colors.teal },
 			["@comment.todo"] = { link = 'Todo' },
 			["@text.todo"] = { link = 'Todo' },
+
+            ['@markup.italic'] = { fg = colors.flamingo, style = { "italic" } },
+            ['@markup.strong'] = { fg = colors.yellow, style = { "bold" } },
+            ['@markup.link.label'] = { fg = brighten(invert(colors.green, colors.blue), 0.4) },
+            ['@markup.link.url'] = { fg = invert(colors.blue) },
+            ['@markup.list'] = { fg = colors.peach },
+            RenderMarkdownBullet = { fg = darken(colors.peach, 0.7) },
+            RenderMarkdownTableHead = { fg = darken(colors.peach, 0.7) },
+            RenderMarkdownTableRow = { fg = darken(colors.peach, 0.7) },
+            RenderMarkdownCodeInline = { bg = darken(colors.yellow, 0.2) },
+            ['@markup.raw'] = { fg = brighten(colors.overlay1, 0.3) },
+            ['@markup.quote'] = { fg = colors.pink },
+            RenderMarkdownQuote1 = { fg = blend(colors.green, colors.yellow, 0.5) },
+            RenderMarkdownQuote2 = { fg = blend(colors.teal, colors.green, 0.8) },
+            RenderMarkdownQuote3 = { fg = colors.sapphire },
+            RenderMarkdownQuote4 = { fg = colors.blue },
+            RenderMarkdownQuote5 = { fg = colors.lavender },
+            RenderMarkdownQuote6 = { fg = colors.mauve },
+
+            ["@markup.heading.1.markdown"] = { fg = blend(colors.green, colors.yellow, 0.5) },
+            ["@markup.heading.2.markdown"] = { fg = blend(colors.teal, colors.green, 0.8) },
+            ["@markup.heading.3.markdown"] = { fg = colors.sapphire },
+            ["@markup.heading.4.markdown"] = { fg = colors.blue },
+            ["@markup.heading.5.markdown"] = { fg = colors.lavender },
+            ["@markup.heading.6.markdown"] = { fg = colors.mauve },
+            RenderMarkdownH1 = { fg = blend(colors.green, colors.yellow, 0.5) },
+            RenderMarkdownH2 = { fg = blend(colors.teal, colors.green, 0.8) },
+            RenderMarkdownH3 = { fg = colors.sapphire },
+            RenderMarkdownH4 = { fg = colors.blue },
+            RenderMarkdownH5 = { fg = colors.lavender },
+            RenderMarkdownH6 = { fg = colors.mauve },
+            RenderMarkdownH1Bg = { bg = darken(blend(colors.green, colors.yellow, 0.5),     0.18) },
+            RenderMarkdownH2Bg = { bg = darken(blend(colors.teal, colors.green, 0.8),       0.18) },
+            RenderMarkdownH3Bg = { bg = darken(colors.sapphire,                             0.2) },
+            RenderMarkdownH4Bg = { bg = darken(colors.blue,                                 0.2) },
+            RenderMarkdownH5Bg = { bg = darken(colors.lavender,                             0.2) },
+            RenderMarkdownH6Bg = { bg = darken(colors.mauve,                                0.2) },
 
 			CocSemTypeEnumMember = { link = "Constant" },
 
@@ -336,7 +374,7 @@ require('codecompanion').setup {
 			agent = "open_code",
 			agents = {
 				claude_code = {
-					cmd = os.getenv("CLAUDE_CLI_CMD"),
+					cmd = "claude",
 					args = {},
 					description = "Claude Code CLI",
 					provider = "terminal",
@@ -366,14 +404,14 @@ require('codecompanion').setup {
 	},
 }
 vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<Leader>a1", "<cmd>CodeCompanionCLI ><cr>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<Leader>a2", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<Leader>a1", "<cmd>CodeCompanionCLI agent=claude_code ><cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<Leader>a2", "<cmd>CodeCompanionCLI agent=opencode_cli<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<Leader>a3", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 -- Expand 'cc' into 'CodeCompanion' in the command line
 vim.cmd([[cab cc CodeCompanion]])
 
 -- coc config
-require("lazy").load({ plugins = { "coc.nvim" } })
 vim.opt.updatetime = 300
 vim.opt.signcolumn = "yes"
 function _G.check_back_space()
@@ -665,13 +703,14 @@ local function range_sub(repl)
 	if s > e then s, e = e, s end
 	vim.cmd(s .. "," .. e .. "s=^\\(//\\)*=" .. repl .. "=g")
 	vim.cmd("noh")
+	vim.api.nvim_input("<Esc>")
 end
 vim.keymap.set({ "n", "v" }, "<F7>", function() range_sub("//") end, snopts)
 vim.keymap.set({ "n", "v" }, "<F6>", function() range_sub("") end, snopts)
 
 vim.keymap.set("c", ",rr", function()
 	local word = vim.fn.expand("<cword>")
-	local cmd = ".," .. "s/" .. word .. "//g" .. "<left><left>"
+	local cmd = ".," .. "s/" .. word .. "//gI" .. "<left><left><left>"
 	return cmd
 end, { expr = true, noremap = true })
 function _G.RepeatOneLineReplace(cword)
@@ -680,13 +719,13 @@ function _G.RepeatOneLineReplace(cword)
 	if string.sub(cmd, 1, 4) == ".,s/" then
 		local search_pattern = vim.fn.getreg('/')
 		if cword ~= search_pattern then
-			local found = vim.fn.search(search_pattern, 'W')
+			local found = vim.fn.search('\\C' .. search_pattern, 'W')
 			if found == 0 then
 				vim.notify("No more matches found.", vim.log.levels.WARN)
 				return
 			end
 		end
-		vim.cmd(":" .. cmd)
+		vim.cmd(":" .. cmd .. "I")
 	end
 end
 vim.keymap.set("n", "<Leader>rr", function()
