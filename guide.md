@@ -1,8 +1,10 @@
 # phnvimcfg
-This is a nvim configuration git.
+phnvimcfg is a neovim(nvim) configuration git.
+It use [lazy](https://github.com/folke/lazy.nvim) for plug management. See [Plugs](#Plugs) for more details.
 
-## Install
-After neovim installed, you can install this configuration file by following below cmd
+## Installation
+Note you need to install nvim first. See [neovim](#neovim) for more info.
+After nvim installed, you can install phnvimcfg by following:
 ```bash
 cd ~
 mkdir -p .config/nvim
@@ -13,20 +15,20 @@ cd ~/.config/nvim
 rm init.lua coc-settings.json
 ls -s ~/.local/share/phnvimcfg/init.lua
 ls -s ~/.local/share/phnvimcfg/coc-settings.json
-nvim ./
 ```
 
-## Requirement
+After install phnvimcfg, Please open nvim several times. All of plugs will be installed automaticlly.
+
+## Requirements
 ### neovim
 nvim-0.10.4 or later is required. I suggest to use latest version.
-
-#### Dependency
+#### Installation Dependency
 Update dependencies. (needs sudo)
 ```bash
 sudo apt-get install ninja-build gettext cmake curl build-essential git
 ```
 
-#### Install
+#### Installation
 ```bash
 git clone https://github.com/neovim/neovim.git
 cd neovim
@@ -41,10 +43,10 @@ make install
 ```
 
 ### Node
-Node.js v20.19.0 or later is required. I suggest to use latest version.
+Node.js v20.19.0 or later is required by coc.nvim. I suggest to use latest version.
 
-#### Install
-Install nvm, it is node manager.
+#### Installation
+Install nvm, it is node version manager.
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
@@ -70,9 +72,8 @@ nvm alias default 18    #set default node version
 ```
 
 ### Tree-sitter
-Tree-sitter 0.26.1 or later is required.
-Tree-sitter needs cargo tool.
-Install cargo
+Tree-sitter 0.26.1 or later is required for code navigate and highlight.
+Tree-sitter needs cargo tool. Install cargo
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 #Follow the script to install. If you can edit .profile, just use default setting. If you cannot, use customer build and set PATH by your self
@@ -87,15 +88,38 @@ cargo install tree-sitter-cli
 cargo install tree-sitter-cli --no-default-features
 ```
 
-#### Install Tree-sitter in nvim
+#### Install Tree-sitter language support in nvim
 ```vim
 :TSInstall markdown markdown_inline yaml lua
 ```
 
-# Icon (Nerd Font)
+## Plugs
+phnvimcfg use many popular nvim plugs for friendly c/cpp based development env. Plug list shows below
+
+| Plug | Main feature |
+| --- | --- |
+| [lazy.nvim](https://github.com/folke/lazy.nvim) | plug management |
+| [catppuccin](https://github.com/catppuccin/nvim) | base colorscheme |
+| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | buffer management |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | AI chat and agent CLI support |
+| [coc.nvim](https://github.com/neoclide/coc.nvim) | insert completions and LSP support |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | markdown context enhancement |
+| [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | broser based markdown show |
+| [cscope_maps.nvim](https://github.com/dhananjaylatkar/cscope_maps.nvim) | cscope support |
+| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | fuzzy serach |
+| [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | tree style file explore |
+| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) | enhance termianl mode |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | enhance status line |
+| [mhl](https://github.com/BoyPao/mhl) | mark while reading |
+
+
+# Full Capacity
+To use full capacity of phnvimcfg, I suggest to check below items.
+
+## Icon (Nerd Font)
 nvim-web-devicons is used for icon shown. If some icon show as unknow symbol, then we need to install a front from nerd-fonts.
 
-## When useing termianl tool on Windows access Linux
+### When useing termianl tool on Windows access Linux
 For using use mobaxterm from wondows, need to insatll front in Windows, then set mobaxterm use this front
 ```bat
 download JetBrainsMono.zip from https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.4.0
@@ -103,7 +127,7 @@ unzip JetBrainsMono.zip
 move all *ttf/*otf to C:\Windows\Fonts
 ```
 
-## Linux
+### Linux
 For linux, install JetBrainsMono dirrectlly
 ```bash
 mkdir -p ~/.local/share/fonts
@@ -113,12 +137,12 @@ tar -xf JetBrainsMono.tar.xz
 ```
 Set terminal to use this front
 
-# LSP
-## Language server
+## LSP
+### Language server
 clangd is used as language server. clangd-11(support syntax highlight) or later is required.
 Install it from apt, or download releated package install manually.
 
-## bear
+### bear
 If you use purely make to compile code, you can use bear to generate LSP db.
 bear 3.0.18 or later is required. I suggest to use latest version.
 Download src first
@@ -126,24 +150,23 @@ Download src first
 git clone https://github.com/rizsotto/Bear.git
 ```
 
-## Cmake
+### Cmake
 If your project use Cmake, use Cmake to generate LSP db.
 
-# AI
+## AI
 Set your AI config in .bashrc and source .bashrc
-## OpenAI
+### OpenAI
 ```bash
 export OPENAI_URL='xxxxxxxxxxxxxxxxxxxx/v1/chat/completions'
 export OPENAI_API_KEY='your api key'
 export OPENAI_MODEL_CHAT='your llm'
 ```
 
-## Claude CLI
-Install claude CLI and set claude cli bin path into .bashrc
+### Claude CLI
+Install claude CLI and set claude config.
 ```bash
 # Note: please remove '/v1/chat/completions' in URL setting
 export ANTHROPIC_BASE_URL="xxxxxxxxxxxxxxxxxxxxllm"
 export ANTHROPIC_AUTH_TOKEN="your api key"
 export ANTHROPIC_MODEL="your llm"
 ```
-
