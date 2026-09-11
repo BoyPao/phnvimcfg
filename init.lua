@@ -589,6 +589,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 		pcall(vim.keymap.del, 'n', 'F', { buffer = args.buf })
 		pcall(vim.keymap.del, 'n', '<', { buffer = args.buf })
 		pcall(vim.keymap.del, 'n', '>', { buffer = args.buf })
+		pcall(vim.keymap.del, 'n', '<Tab>', { buffer = args.buf })
 	end,
 })
 
