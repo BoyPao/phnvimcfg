@@ -13,8 +13,8 @@ cd .local/share
 git clone https://github.com/BoyPao/phnvimcfg.git
 cd ~/.config/nvim
 rm init.lua coc-settings.json
-ls -s ~/.local/share/phnvimcfg/init.lua
-ls -s ~/.local/share/phnvimcfg/coc-settings.json
+ln -s ~/.local/share/phnvimcfg/init.lua
+ln -s ~/.local/share/phnvimcfg/coc-settings.json
 ```
 
 After install phnvimcfg, Please open nvim several times. All of plugs will be installed automaticlly.
@@ -163,7 +163,12 @@ export OPENAI_MODEL_CHAT='your llm'
 ```
 
 ### Claude CLI
-Install claude CLI and set claude config.
+Install claude CLI
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+Set claude config.
 ```bash
 # Note: please remove '/v1/chat/completions' in URL setting
 export ANTHROPIC_BASE_URL="xxxxxxxxxxxxxxxxxxxxllm"
