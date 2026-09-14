@@ -53,9 +53,9 @@ require("lazy").setup({
 		{
 			"catppuccin/nvim", name = "catppuccin", priority = 1000
 		},
-        {
-            "neovim/nvim-lspconfig",
-        }
+                {
+                        "neovim/nvim-lspconfig",
+                },
 		{
 			"akinsho/bufferline.nvim",
 			version = "*",
@@ -286,42 +286,42 @@ require("catppuccin").setup({
 			["@comment.todo"] = { link = 'Todo' },
 			["@text.todo"] = { link = 'Todo' },
 
-            ['@markup.italic'] = { fg = colors.flamingo, style = { "italic" } },
-            ['@markup.strong'] = { fg = colors.yellow, style = { "bold" } },
-            ['@markup.link.label'] = { fg = brighten(invert(colors.green, colors.blue), 0.4) },
-            ['@markup.link.url'] = { fg = invert(colors.blue) },
-            ['@markup.list'] = { fg = colors.peach },
-            RenderMarkdownBullet = { fg = darken(colors.peach, 0.7) },
-            RenderMarkdownTableHead = { fg = darken(colors.peach, 0.7) },
-            RenderMarkdownTableRow = { fg = darken(colors.peach, 0.7) },
-            RenderMarkdownCodeInline = { bg = darken(colors.yellow, 0.2) },
-            ['@markup.raw'] = { fg = brighten(colors.overlay1, 0.3) },
-            ['@markup.quote'] = { fg = colors.pink },
-            RenderMarkdownQuote1 = { fg = blend(colors.green, colors.yellow, 0.5) },
-            RenderMarkdownQuote2 = { fg = blend(colors.teal, colors.green, 0.8) },
-            RenderMarkdownQuote3 = { fg = colors.sapphire },
-            RenderMarkdownQuote4 = { fg = colors.blue },
-            RenderMarkdownQuote5 = { fg = colors.lavender },
-            RenderMarkdownQuote6 = { fg = colors.mauve },
+                        ['@markup.italic'] = { fg = colors.flamingo, style = { "italic" } },
+                        ['@markup.strong'] = { fg = colors.yellow, style = { "bold" } },
+                        ['@markup.link.label'] = { fg = brighten(invert(colors.green, colors.blue), 0.4) },
+                        ['@markup.link.url'] = { fg = invert(colors.blue) },
+                        ['@markup.list'] = { fg = colors.peach },
+                        RenderMarkdownBullet = { fg = darken(colors.peach, 0.7) },
+                        RenderMarkdownTableHead = { fg = darken(colors.peach, 0.7) },
+                        RenderMarkdownTableRow = { fg = darken(colors.peach, 0.7) },
+                        RenderMarkdownCodeInline = { bg = darken(colors.yellow, 0.2) },
+                        ['@markup.raw'] = { fg = brighten(colors.overlay1, 0.3) },
+                        ['@markup.quote'] = { fg = colors.pink },
+                        RenderMarkdownQuote1 = { fg = blend(colors.green, colors.yellow, 0.5) },
+                        RenderMarkdownQuote2 = { fg = blend(colors.teal, colors.green, 0.8) },
+                        RenderMarkdownQuote3 = { fg = colors.sapphire },
+                        RenderMarkdownQuote4 = { fg = colors.blue },
+                        RenderMarkdownQuote5 = { fg = colors.lavender },
+                        RenderMarkdownQuote6 = { fg = colors.mauve },
 
-            ["@markup.heading.1.markdown"] = { fg = blend(colors.green, colors.yellow, 0.5) },
-            ["@markup.heading.2.markdown"] = { fg = blend(colors.teal, colors.green, 0.8) },
-            ["@markup.heading.3.markdown"] = { fg = colors.sapphire },
-            ["@markup.heading.4.markdown"] = { fg = colors.blue },
-            ["@markup.heading.5.markdown"] = { fg = colors.lavender },
-            ["@markup.heading.6.markdown"] = { fg = colors.mauve },
-            RenderMarkdownH1 = { fg = blend(colors.green, colors.yellow, 0.5) },
-            RenderMarkdownH2 = { fg = blend(colors.teal, colors.green, 0.8) },
-            RenderMarkdownH3 = { fg = colors.sapphire },
-            RenderMarkdownH4 = { fg = colors.blue },
-            RenderMarkdownH5 = { fg = colors.lavender },
-            RenderMarkdownH6 = { fg = colors.mauve },
-            RenderMarkdownH1Bg = { bg = darken(blend(colors.green, colors.yellow, 0.5),     0.18) },
-            RenderMarkdownH2Bg = { bg = darken(blend(colors.teal, colors.green, 0.8),       0.18) },
-            RenderMarkdownH3Bg = { bg = darken(colors.sapphire,                             0.2) },
-            RenderMarkdownH4Bg = { bg = darken(colors.blue,                                 0.2) },
-            RenderMarkdownH5Bg = { bg = darken(colors.lavender,                             0.2) },
-            RenderMarkdownH6Bg = { bg = darken(colors.mauve,                                0.2) },
+                        ["@markup.heading.1.markdown"] = { fg = blend(colors.green, colors.yellow, 0.5) },
+                        ["@markup.heading.2.markdown"] = { fg = blend(colors.teal, colors.green, 0.8) },
+                        ["@markup.heading.3.markdown"] = { fg = colors.sapphire },
+                        ["@markup.heading.4.markdown"] = { fg = colors.blue },
+                        ["@markup.heading.5.markdown"] = { fg = colors.lavender },
+                        ["@markup.heading.6.markdown"] = { fg = colors.mauve },
+                        RenderMarkdownH1 = { fg = blend(colors.green, colors.yellow, 0.5) },
+                        RenderMarkdownH2 = { fg = blend(colors.teal, colors.green, 0.8) },
+                        RenderMarkdownH3 = { fg = colors.sapphire },
+                        RenderMarkdownH4 = { fg = colors.blue },
+                        RenderMarkdownH5 = { fg = colors.lavender },
+                        RenderMarkdownH6 = { fg = colors.mauve },
+                        RenderMarkdownH1Bg = { bg = darken(blend(colors.green, colors.yellow, 0.5),     0.18) },
+                        RenderMarkdownH2Bg = { bg = darken(blend(colors.teal, colors.green, 0.8),       0.18) },
+                        RenderMarkdownH3Bg = { bg = darken(colors.sapphire,                             0.2) },
+                        RenderMarkdownH4Bg = { bg = darken(colors.blue,                                 0.2) },
+                        RenderMarkdownH5Bg = { bg = darken(colors.lavender,                             0.2) },
+                        RenderMarkdownH6Bg = { bg = darken(colors.mauve,                                0.2) },
 
 			CocSemTypeEnumMember = { link = "Constant" },
 
@@ -356,17 +356,17 @@ vim.cmd('silent! colorscheme catppuccin-nvim')
 
 -- nvim-lspconfig config
 vim.lsp.config('*', {
-    capabilities = {
-        textDocument = {
-            semanticTokens = {
-                multilineTokenSupport = true,
-            }
-        }
-    },
-    root_markers = { '.git' },
+        capabilities = {
+                textDocument = {
+                        semanticTokens = {
+                                multilineTokenSupport = true,
+                        }
+                }
+        },
+        root_markers = { '.git' },
 })
 vim.lsp.config('clangd', {
-    filetypes = { 'c', 'cpp', 'h', 'hpp' },
+        filetypes = { 'c', 'cpp', 'h', 'hpp' },
 })
 vim.lsp.enable('clangd')
 
