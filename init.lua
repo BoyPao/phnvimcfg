@@ -11,7 +11,22 @@ local esnopts = { silent = true, noremap = true, expr = true }
 local my_opts = {
 	override_pickers_telescope = true,
 }
-
+vim.g.coc_user_config = {
+        floatFactory = {
+                floatConfig = {
+                        border = true,
+                        rounded = true,
+                        borderhighlight = "CocFloatBorder",
+                }
+        },
+        suggest = {
+                pumFloatConfig = {
+                        border = true,
+                        rounded = true,
+                        borderhighlight = "CocFloatBorder",
+                }
+        },
+}
 
 -- Plug Mgr Config -----------------------------------------------------------------------------------------------------
 -- Bootstrap lazy.nvim
@@ -241,7 +256,12 @@ require("catppuccin").setup({
 			Todo = { bg = colors.green, fg = colors.base, style = { "bold" } },
 			WarningMsg = { fg = colors.mantle, bg = colors.yellow, style = { "bold" } },
 			ErrorMsg = { fg = colors.mantle, bg = colors.red, style = { "bold" } },
-
+						
+			WinSeparator = { link = "FloatBorder" },
+			NvimTreeWinSeparator = { link = 'WinSeparator' },
+			PmenuBorder = { link = "WinSeparator" },
+			CocFloatBorder = { link = "WinSeparator" },
+						
 			["@variable"] = { link = 'Identifier' },
 			["@variable.builtin"] = { link = 'Special' },
 			["@variable.member"] = { link = 'Identifier' },
