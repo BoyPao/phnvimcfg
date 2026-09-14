@@ -53,6 +53,9 @@ require("lazy").setup({
 		{
 			"catppuccin/nvim", name = "catppuccin", priority = 1000
 		},
+        {
+            "neovim/nvim-lspconfig",
+        }
 		{
 			"akinsho/bufferline.nvim",
 			version = "*",
@@ -256,12 +259,12 @@ require("catppuccin").setup({
 			Todo = { bg = colors.green, fg = colors.base, style = { "bold" } },
 			WarningMsg = { fg = colors.mantle, bg = colors.yellow, style = { "bold" } },
 			ErrorMsg = { fg = colors.mantle, bg = colors.red, style = { "bold" } },
-						
+
 			WinSeparator = { link = "FloatBorder" },
 			NvimTreeWinSeparator = { link = 'WinSeparator' },
 			PmenuBorder = { link = "WinSeparator" },
 			CocFloatBorder = { link = "WinSeparator" },
-						
+
 			["@variable"] = { link = 'Identifier' },
 			["@variable.builtin"] = { link = 'Special' },
 			["@variable.member"] = { link = 'Identifier' },
@@ -350,6 +353,22 @@ require("catppuccin").setup({
 	},
 })
 vim.cmd('silent! colorscheme catppuccin-nvim')
+
+-- nvim-lspconfig config
+vim.lsp.config('*', {
+    capabilities = {
+        textDocument = {
+            semanticTokens = {
+                multilineTokenSupport = true,
+            }
+        }
+    },
+    root_markers = { '.git' },
+})
+vim.lsp.config('clangd', {
+    filetypes = { 'c', 'cpp', 'h', 'hpp' },
+})
+vim.lsp.enable('clangd')
 
 -- nvim-treesitter config
 require('nvim-treesitter').setup {
@@ -478,6 +497,7 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', 'ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', 'fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', 'fb', builtin.current_buffer_fuzzy_find, { desc = 'Telescope buffers' })
+vim.keymap.set('n', 'fs', builtin.lsp_document_symbols, { desc = 'Telescope doc sysbols' })
 --vim.keymap.set('n', 'fb', builtin.buffers, { desc = 'Telescope buffers' })
 --vim.keymap.set('n', 'fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', 'zt', function()
