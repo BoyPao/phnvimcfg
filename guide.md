@@ -100,6 +100,7 @@ phnvimcfg use many popular nvim plugs for friendly c/cpp based development env. 
 | --- | --- |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | plug management |
 | [catppuccin](https://github.com/catppuccin/nvim) | base colorscheme |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | lsp support when not use coc |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | buffer management |
 | [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | AI chat and agent CLI support |
 | [coc.nvim](https://github.com/neoclide/coc.nvim) | insert completions and LSP support |
