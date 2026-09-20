@@ -375,9 +375,11 @@ require('nvim-treesitter').setup {
 	-- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
 	install_dir = vim.fn.stdpath('data') .. '/site'
 }
-require('nvim-treesitter').install {
-	'bash', 'c', 'cpp', 'devicetree', 'json', 'lua', 'make', 'markdown', 'python', 'xml'
-}
+if vim.fn.executable('tree-sitter') == 1 then
+	require('nvim-treesitter').install {
+		'bash', 'c', 'cpp', 'devicetree', 'json', 'lua', 'make', 'markdown', 'python', 'xml'
+	}
+end
 vim.keymap.set('n', '<leader>h', ':Inspect<CR>', { noremap = true, silent = true })
 
 -- bufferline
