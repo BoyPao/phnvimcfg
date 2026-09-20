@@ -720,17 +720,17 @@ vim.keymap.set("n", "<Leader>n", ":MhlClearAllMatch<CR>", snopts)
 
 -- Other Self Config ---------------------------------------------------------------------------------------------------
 vim.opt.mouse = ''		-- click+move will on visual mode, so disable mouse totally, use <Tab> to switch mouse
-vim.opt.selectmode = mouse,key 	-- This allows select copy by mouse
+vim.opt.selectmode = mouse,key	-- This allows select copy by mouse
 vim.opt.number = true
 vim.opt.cursorline = true
-vim.opt.colorcolumn = "120" 	-- TODO: make it change
+vim.opt.colorcolumn = "120"	-- TODO: make it change
 vim.opt.iskeyword:append("_", "@", "%")
 vim.opt.listchars:append("tab:'``")
 vim.opt.scrolloff = 7
-vim.opt.cmdheight = 2  		-- always show at least 1 line message
+vim.opt.cmdheight = 2		-- always show at least 1 line message
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.shortmess:append("S") 	-- show "search hit BOTTOM, continuing at TOP" rather then "[1/5]"
+vim.opt.shortmess:append("S")	-- show "search hit BOTTOM, continuing at TOP" rather then "[1/5]"
 
 vim.keymap.set("n", "<Leader><CR>", ":nohlsearch<CR>", snopts)
 vim.keymap.set("n", "vv", ":vsplit<CR>", snopts)
@@ -845,6 +845,7 @@ vim.api.nvim_create_autocmd({'BufWritePost', 'InsertLeave', 'BufEnter'}, {
 vim.api.nvim_create_autocmd( 'BufWritePre', {
 	callback = function()
 		vim.cmd(':%s/\\s\\+$//ge')
+		vim.cmd(':%s/ \\+\\ze\t//ge')
 	end
 })
 
