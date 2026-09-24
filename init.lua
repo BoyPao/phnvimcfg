@@ -263,6 +263,7 @@ require("catppuccin").setup({
 
 			WinSeparator = { link = "FloatBorder" },
 			NvimTreeWinSeparator = { link = 'WinSeparator' },
+			PmenuSel = { bg = colors.surface1 },
 			PmenuBorder = { link = "WinSeparator" },
 			CocFloatBorder = { link = "WinSeparator" },
 
