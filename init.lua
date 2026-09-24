@@ -17,6 +17,7 @@ vim.g.coc_user_config = {
 			border = true,
 			rounded = true,
 			borderhighlight = "CocFloatBorder",
+			winblend = 30,
 		}
 	},
 	suggest = {
@@ -510,9 +511,46 @@ require('telescope').setup({
 	defaults = {
 		layout_config = {
 			width = 0.95,
-			horizontal = {
-				results_width = 0.7,
-				preview_width = 0.3,
+			horizontal = { preview_width = 0.45 },
+		},
+		cycle_layout_list = {
+			{
+				layout_strategy = 'horizontal',
+				layout_config = {
+					width = 0.95,
+					horizontal = { preview_width = 0.40 },
+				},
+			},
+			{
+				layout_strategy = 'horizontal',
+				layout_config = {
+					width = 0.95,
+					horizontal = { preview_width = 0.35 },
+				},
+			},
+			{
+				layout_strategy = 'horizontal',
+				layout_config = {
+					width = 0.95,
+					horizontal = { preview_width = 0.30 },
+				},
+			},
+			{
+				layout_strategy = 'horizontal',
+				layout_config = {
+					width = 0.95,
+					horizontal = { preview_width = 0.45 },
+				},
+			},
+		},
+		mappings = {
+			n = {
+				['>>'] = require('telescope.actions.layout').cycle_layout_next,
+				['<<'] = require('telescope.actions.layout').cycle_layout_prev,
+			},
+			i = {
+				['>>'] = require('telescope.actions.layout').cycle_layout_next,
+				['<<'] = require('telescope.actions.layout').cycle_layout_prev,
 			},
 		},
 		scroll_strategy = "limit",
