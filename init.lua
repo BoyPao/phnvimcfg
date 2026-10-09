@@ -573,9 +573,9 @@ local function FindDBDir()
 	local root = ''
 	local markers = { 'cscope.out', 'GTAGS' }
 	for _, marker in ipairs(markers) do
-		local found = vim.fn.findfile(marker, '.;')
-		if found ~= '' then
-			root = root .. vim.fn.fnamemodify(vim.fn.fnamemodify(found, ':h'), ':p')
+		local hit = vim.fn.findfile(marker, '.;')
+		if hit ~= '' then
+			root = vim.fn.fnamemodify(vim.fn.fnamemodify(hit, ':h'), ':p')
 			break
 		end
 	end
@@ -586,7 +586,7 @@ local function FindDBDir()
 end
 require("cscope_maps").setup({
 	cscope = {
-		db_file = FindDBDir() .. "/cscope.out::@", -- DB or table of DBs
+		db_file = function() return { FindDBDir() .. "/cscope.out::@" } end, -- DB or table of DBs
 		exec = "cscope", -- "cscope" or "gtags-cscope"
 		picker = "telescope", -- "quickfix", "location", "telescope", "fzf-lua", "mini-pick" or "snacks"
 		skip_picker_for_single_result = true, -- "false" or "true"
@@ -598,8 +598,8 @@ require("cscope_maps").setup({
 		},
 	},
 })
-local function GenerateLst()
-	local lst = 'cscope.tags.lst'
+local function GenerateLst(root)
+	local lst = root .. '/cscope.tags.lst'
 	local tar = {
 		c   = '.h .c',
 		cpp = '.hpp .cpp .cc',
@@ -618,7 +618,7 @@ local function GenerateLst()
 		end
 	end
 
-	local job = vim.system(cmd)
+	local job = vim.system(cmd, { cwd = root })
 	local rt = job:wait()
 	if rt.code == 0 then
 		local lines = vim.split(rt.stdout, "\n", { plain = true, trimempty = true })
@@ -630,14 +630,12 @@ end
 
 vim.keymap.set("n", "22", function ()
 	local root = FindDBDir()
-	vim.cmd("cd " .. vim.fn.fnameescape(root))
-	local rt = GenerateLst()
+	local rt = GenerateLst(root)
 	if rt.code == 0 then
-		vim.cmd("Cs db build")
-		vim.cmd("Cs reload")
-		vim.cmd("cd ..")
+		vim.cmd("Cs reload") -- re-resolve primary db connection if cd to other project manually
+		vim.cmd("Cs db build") -- donot need reload after db build, since next Cs cmd load new db
 	else
-		print("Error: " .. rt.stderr)
+		print("Error: " .. (rt.stderr or ''))
 	end
 end, snopts)
 -- default: use coc + clangd for jump, use '11' to switch to cscope
