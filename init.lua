@@ -29,6 +29,17 @@ vim.g.coc_user_config = {
 	},
 }
 
+-- nvim-tree >= 1.19 enables session-restore, it needs `SessionWritePre` autocmd of nvim(0.13)
+local function nvim_tree_version()
+       local ok, id = pcall(vim.api.nvim_create_autocmd, "SessionWritePre", {
+               callback = function() end,
+       })
+       if ok then
+               vim.api.nvim_del_autocmd(id) -- drop the probe autocmd
+       end
+       return ok and "*" or "1.18.0"
+end
+
 -- Plug Mgr Config -----------------------------------------------------------------------------------------------------
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -192,7 +203,7 @@ require("lazy").setup({
 		},
 		{
 			"nvim-tree/nvim-tree.lua",
-			version = "*",
+			version = nvim_tree_version(),
 			lazy = false,
 			dependencies = { "nvim-tree/nvim-web-devicons", },
 		},
