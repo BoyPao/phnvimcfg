@@ -426,13 +426,13 @@ require('codecompanion').setup {
 			agents = {
 				claude_code = {
 					cmd = "claude",
-					args = {},
+					args = { "-c" }, -- continue old session
 					description = "Claude Code CLI",
 					provider = "terminal",
 				},
 				open_code = {
 					cmd = "opencode",
-					args = {},
+					args = { "-c" }, -- continue old session
 					description = "OpenCode",
 					provider = "terminal",
 				},
@@ -455,7 +455,7 @@ require('codecompanion').setup {
 	},
 }
 vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<Leader>a1", "<cmd>CodeCompanionCLI agent=claude_code ><cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<Leader>a1", "<cmd>CodeCompanionCLI agent=claude_code<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<Leader>a2", "<cmd>CodeCompanionCLI agent=open_code<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<Leader>a3", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
