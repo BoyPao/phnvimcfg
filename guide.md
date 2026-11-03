@@ -10,6 +10,7 @@ cd ~
 mkdir -p .config/nvim
 mkdir -p .local/share
 cd .local/share
+rm -rf phnvimcfg/
 git clone https://github.com/BoyPao/phnvimcfg.git
 cd ~/.config/nvim
 rm -f init.lua coc-settings.json
