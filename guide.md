@@ -12,7 +12,7 @@ mkdir -p .local/share
 cd .local/share
 git clone https://github.com/BoyPao/phnvimcfg.git
 cd ~/.config/nvim
-rm init.lua coc-settings.json
+rm -f init.lua coc-settings.json
 ln -s ~/.local/share/phnvimcfg/init.lua
 ln -s ~/.local/share/phnvimcfg/coc-settings.json
 ```
